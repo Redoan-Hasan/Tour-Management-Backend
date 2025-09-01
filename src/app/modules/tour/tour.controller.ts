@@ -68,7 +68,7 @@ const getAllTours = catchHandler(async (req: Request, res: Response) => {
     success: true,
     message: "All tours retrieved successfully",
     data: tours.data,
-    meta: tours.meta,
+    meta : tours.meta
   });
 });
 
