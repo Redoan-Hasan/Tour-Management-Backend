@@ -60,7 +60,7 @@ export class QueryBuilder<T> {
     return {
       page,
       limit,
-      totalDocuments: totalCount,
+      total: totalCount,
       totalPage : Math.ceil(totalCount/limit)
     };
   }
