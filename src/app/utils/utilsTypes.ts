@@ -5,18 +5,35 @@ export type catchAsync = (
   next: NextFunction
 ) => Promise<void>;
 
-interface IMeta{
-    total:number;
+export interface IMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
 }
 export interface IResponse<DataType> {
-    statusCode : number;
-    success: boolean ;
-    message: string;
-    data: DataType;
-    meta?: IMeta 
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: DataType;
+  meta?: Partial<IMeta>;
 }
 
-export interface ISetCookieTokenInfo{
-  accessToken ?: string;
-  refreshToken ?: string;
+export interface ISetCookieTokenInfo {
+  accessToken?: string;
+  refreshToken?: string;
+}
+
+
+export interface ISendEmailOptions {
+  to: string;
+  subject: string;
+  templateName: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  templateData: Record<string, any>;
+  attachments?: {
+    filename: string;
+    content: Buffer | string;
+    contentType: string;
+  }[];
 }

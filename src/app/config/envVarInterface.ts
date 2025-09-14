@@ -26,4 +26,22 @@ export interface IEnvVars {
     SSL_FAIL_BACKEND_URL: string;
     SSL_CANCEL_BACKEND_URL: string;
   };
+  CLOUDINARY: {
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
+  };
+  EMAIL_SENDER:{
+    SMTP_PASS : string;
+    SMTP_HOST : string;
+    SMTP_PORT : number;
+    SMTP_USER : string;
+    SMTP_FROM : string;
+  };
+  REDIS:{
+    REDIS_HOST: string;
+    REDIS_PORT: number;
+    REDIS_USERNAME: string;
+    REDIS_PASSWORD: string;
+  };
 }

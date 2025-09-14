@@ -34,6 +34,14 @@ const getAllUsers = async () => {
 };
 
 
+const getMe = async (id:string) => {
+  const getMe = await User.findById(id).select("-password");
+  return {
+    data: getMe,
+  };
+};
+
+
 const updateUser = async(userId : string, payload: Partial<IUser>, decodedToken:JwtPayload) => {
   const isUserExist = await User.findById(userId);
   if(!isUserExist){
@@ -61,5 +69,6 @@ const updateUser = async(userId : string, payload: Partial<IUser>, decodedToken:
 export const UserServices = {
   createUser,
   getAllUsers,
-  updateUser
+  updateUser,
+  getMe,
 };

@@ -45,8 +45,9 @@ const sslPaymentInit = async (payload: ISSLCommerz) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
     return response.data;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.error("Error initializing SSL payment:", error);
+    // console.error("Error initializing SSL payment:", error);
     throw new AppError(
       httpStatus.INTERNAL_SERVER_ERROR,
       "Failed to initialize SSL payment"
