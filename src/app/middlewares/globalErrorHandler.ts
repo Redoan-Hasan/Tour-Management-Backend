@@ -10,8 +10,9 @@ import { handleDuplicateKeyError } from "../helpers/handleDuplicateKeyError";
 import { handleCastError } from "../helpers/handleCastError";
 import { handleValidationError } from "../helpers/handleValidationError";
 import { handleZodError } from "../helpers/handleZodError";
+import { deleteFromCloudinary } from "../config/cloudinary.config";
 
-export const globalErrorHandler = (
+export const globalErrorHandler = async (
   error: any,
   req: Request,
   res: Response,
@@ -19,6 +20,17 @@ export const globalErrorHandler = (
 ) => {
   if (envVars.NODE_ENV === "development") {
     console.log(error);
+  }
+
+  if (req.file) {
+    await deleteFromCloudinary(req.file.path);
+  }
+
+  if (req.files && Array.isArray(req.files) && req.files?.length > 0) {
+    const imagesUrls = (req.files as Express.Multer.File[]).map(
+      (file) => file.path
+    );
+    await Promise.all(imagesUrls.map((url) => deleteFromCloudinary(url)));
   }
   let statusCode = 500;
   let message = error.message;
@@ -60,7 +72,7 @@ export const globalErrorHandler = (
     success: false,
     message,
     errorSources,
-    error : envVars.NODE_ENV === "development" ? error : null,
+    error: envVars.NODE_ENV === "development" ? error : null,
     stack: envVars.NODE_ENV === "development" ? error.stack : null,
   });
 };

@@ -3,9 +3,15 @@ import { Request, Response } from "express";
 import { catchHandler } from "../../utils/catchHandler";
 import { DivisionServices } from "./division.service";
 import { sendResponse } from "../../utils/sendResponse";
+import { IDivision } from "./division.interface";
 
 const createDivision = catchHandler(async (req: Request, res: Response) => {
-  const divisionInfo = await DivisionServices.createDivision(req.body);
+  const payload: IDivision = {
+    ...req.body,
+    thumbnail: req.file?.path,
+  };
+  // console.log({ file: req.file, body: req.body });
+  const divisionInfo = await DivisionServices.createDivision(payload);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -37,15 +43,18 @@ const getSingleDivision = catchHandler(async (req: Request, res: Response) => {
 });
 
 const updateDivision = catchHandler(async (req: Request, res: Response) => {
-    const divisionId = req.params.id;
-    const payload = req.body;
-    const updatedDivision = await DivisionServices.updateDivision(divisionId, payload);
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Division updated successfully",
-        data: updatedDivision.data,
-    });
+  const divisionId = req.params.id;
+  const payload : IDivision = { ...req.body, thumbnail: req.file?.path };
+  const updatedDivision = await DivisionServices.updateDivision(
+    divisionId,
+    payload
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Division updated successfully",
+    data: updatedDivision.data,
+  });
 });
 
 const deleteDivision = catchHandler(async (req: Request, res: Response) => {

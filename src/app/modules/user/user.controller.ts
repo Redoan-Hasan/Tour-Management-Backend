@@ -32,6 +32,19 @@ const getAllUsers = catchHandler(
     });
   }
 );
+const getMe = catchHandler(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const getMe = await UserServices.getMe(decodedToken.id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Your profile fetched successfully",
+      data: getMe,
+    });
+  }
+);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const updateUser = catchHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -61,4 +74,5 @@ export const UserController = {
   createUser,
   getAllUsers,
   updateUser,
+  getMe,
 };

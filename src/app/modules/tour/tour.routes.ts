@@ -8,6 +8,7 @@ import {
   createTourZodSchema,
   updateTourZodSchema,
 } from "./tour.ZodValidation";
+import { multerUpload } from "../../config/multer.config";
 
 const router = Router();
 /**-------------------Tour Types----------------------*/
@@ -34,6 +35,7 @@ router.delete(
 router.post(
   "/create",
   checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+  multerUpload.array("files"),
   validateRequest(createTourZodSchema),
   TourController.createTour
 );
@@ -41,6 +43,7 @@ router.get("/", TourController.getAllTours);
 router.patch(
   "/:id",
   checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+  multerUpload.array("files"),
   validateRequest(updateTourZodSchema),
   TourController.updateTour
 );
