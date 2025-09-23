@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>OTP Verification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        color: #333;
+      }
+      .container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .otp-box {
+        font-size: 28px;
+        letter-spacing: 8px;
+        background: #f1f1f1;
+        padding: 16px;
+        border-radius: 6px;
+        margin: 20px 0;
+        text-align: center;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>OTP Verification</h2>
+      <p>Hello <%= name %>,</p>
+      <p>Your One-Time Password (OTP) for verification is:</p>
+      <div class="otp-box"><%= otp %></div>
+      <p>
+        Please enter this OTP to complete your verification. This code will
+        expire in 10 minutes.
+      </p>
+      <div class="footer">&copy; PH Tour Management. All rights reserved.</div>
+    </div>
+  </body>
+</html>

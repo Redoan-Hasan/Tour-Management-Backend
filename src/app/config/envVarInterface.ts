@@ -19,6 +19,7 @@ export interface IEnvVars {
     SSL_STORE_PASSWORD: string;
     SSL_PAYMENT_API: string;
     SSL_VALIDATION_API: string;
+    SSL_IPN_API: string;
     SSL_SUCCESS_FRONTEND_URL: string;
     SSL_FAIL_FRONTEND_URL: string;
     SSL_CANCEL_FRONTEND_URL: string;

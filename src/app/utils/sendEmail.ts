@@ -36,7 +36,7 @@ export const sendEmail = async ({
         contentType: attachment.contentType,
       })),
     });
-    console.log(`\u2709\uFE0F Email sent to ${to}: ${info.messageId}`);
+    // console.log(`\u2709\uFE0F Email sent to ${to}: ${info.messageId}`);
     return info;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error:any) {

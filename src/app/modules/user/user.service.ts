@@ -4,7 +4,6 @@ import { User } from "./user.model";
 import httpStatus from "http-status-codes";
 import bycrypt from "bcryptjs";
 import { JwtPayload } from "jsonwebtoken";
-import envVars from "../../config/env";
 
 const createUser = async (payload: Partial<IUser>) => {
   // const { name, email } = payload;
@@ -40,27 +39,38 @@ const getMe = async (id:string) => {
     data: getMe,
   };
 };
+const getSingleUser = async (id:string) => {
+  const singleUserInfo = await User.findById(id).select("-password");
+  return {
+    data: singleUserInfo,
+  };
+};
 
 
 const updateUser = async(userId : string, payload: Partial<IUser>, decodedToken:JwtPayload) => {
+  if(decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE){
+    if(decodedToken.id !== userId){
+      throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
+    }
+  }
   const isUserExist = await User.findById(userId);
   if(!isUserExist){
     throw new AppError(httpStatus.NOT_FOUND , "User does not exist");
+  }
+  if(decodedToken.role === Role.ADMIN && isUserExist.role === Role.SUPER_ADMIN){
+    throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
   }
   if(payload.role){
     if(decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE){
       throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
     }
-    if(payload.role === Role.SUPER_ADMIN && decodedToken.role === Role.ADMIN){
-      throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
-    }
+    // if(payload.role === Role.SUPER_ADMIN && decodedToken.role === Role.ADMIN){
+    //   throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
+    // }
   }
   if(payload.isActive || payload.isDeleted || payload.isVerified){
     if(decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE){
       throw new AppError(httpStatus.FORBIDDEN,"You are not authorized")
-    }
-    if(payload.password){
-      payload.password = await bycrypt.hash(payload.password, envVars.BYCRYPT_SALT_ROUNDS);
     }
   }
     const newUpdateUser = await User.findByIdAndUpdate(userId, payload,{new:true, runValidators:true});
@@ -71,4 +81,5 @@ export const UserServices = {
   getAllUsers,
   updateUser,
   getMe,
+  getSingleUser
 };

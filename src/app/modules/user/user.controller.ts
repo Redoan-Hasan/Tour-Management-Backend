@@ -45,6 +45,19 @@ const getMe = catchHandler(
     });
   }
 );
+const getSingleUser = catchHandler(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    const getMe = await UserServices.getSingleUser(id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Single user fetched successfully",
+      data: getMe,
+    });
+  }
+);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const updateUser = catchHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -75,4 +88,5 @@ export const UserController = {
   getAllUsers,
   updateUser,
   getMe,
+  getSingleUser,
 };
