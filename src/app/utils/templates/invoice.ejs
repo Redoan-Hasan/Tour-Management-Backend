@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Invoice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .header h1 {
+        margin: 0;
+        color: #333;
+        font-size: 32px;
+      }
+      .info-table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+      }
+      .info-table td {
+        padding: 6px 0;
+      }
+      .section-title {
+        font-size: 18px;
+        margin-top: 24px;
+        margin-bottom: 8px;
+        color: #007bff;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 4px;
+      }
+      .amount {
+        font-size: 20px;
+        color: #28a745;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #888;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Invoice</h1>
+      </div>
+      <table class="info-table">
+        <tr>
+          <td><strong>Transaction ID:</strong></td>
+          <td><%= transactionId %></td>
+        </tr>
+        <tr>
+          <td><strong>Booking Date:</strong></td>
+          <td><%= bookingDate %></td>
+        </tr>
+      </table>
+
+      <div class="section-title">Customer Information</div>
+      <table class="info-table">
+        <tr>
+          <td><strong>Name:</strong></td>
+          <td><%= userName %></td>
+        </tr>
+      </table>
+
+      <div class="section-title">Booking Details</div>
+      <table class="info-table">
+        <tr>
+          <td><strong>Tour:</strong></td>
+          <td><%= tourTitle %></td>
+        </tr>
+        <tr>
+          <td><strong>Guests:</strong></td>
+          <td><%= guestCount %></td>
+        </tr>
+        <tr>
+          <td><strong>Total Amount:</strong></td>
+          <td class="amount">$<%= totalAmount %></td>
+        </tr>
+      </table>
+
+      <div class="footer">
+        Thank you for booking with us!<br />
+        &copy; PH Tour Management. All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

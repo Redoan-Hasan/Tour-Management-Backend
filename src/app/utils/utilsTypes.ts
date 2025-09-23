@@ -37,3 +37,12 @@ export interface ISendEmailOptions {
     contentType: string;
   }[];
 }
+
+export interface IInvoiceData {
+    transactionId: string;
+    bookingDate: Date;
+    userName: string;
+    tourTitle: string;
+    guestCount: number;
+    totalAmount: number;
+}
